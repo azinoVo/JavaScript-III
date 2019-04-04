@@ -47,8 +47,12 @@ GameObject.prototype.destroy = function(){
 */
 
 //Health Points
-const CharacterStats = function(health){
-  this.healthPoints = health.healthPoints
+const CharacterStats = function(attributes){
+  this.healthPoints = attributes.healthPoints;
+  
+  //Inherit from GameObject?
+  CharacterStats.call(this,attributes);
+
 };
 
 //Take Damage Prototype Method
@@ -78,11 +82,15 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit takeDamage() from CharacterStats
 */
  
-//General Constructor for Humanoid
-const Humanoid = function(team,weapons,language){
-  this.team = team,
-  this.weapons = weapons,
-  this.language = language
+//General Constructor for Humanoid - team,weapons,language
+const Humanoid = function(attributes){
+  this.team = attributes.team;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+
+  //Inherit from game stats?
+  CharacterStats.call(this, attributes);
+
 }
 
 //Greet prototype for Humanoid
