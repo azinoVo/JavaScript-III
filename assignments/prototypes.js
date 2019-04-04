@@ -1,9 +1,11 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
+  Object oriented design is commonly used in video games.  
+  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
 
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
+  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  
+  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
@@ -16,12 +18,55 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+//GameObject Constructor
+const GameObject = function (attributes) {
+  this.createdAt = attributes.createdAt,
+  this.name = attribute.name,
+  this.dimensions = function (dimensions){
+    this.length = dimensions.length ,
+    this.width = dimensions.width,
+    this.height = dimensions.height
+  }
+  // this.destroy = function(name) {
+  //   return `${this.name} was removed from the game.`
+  }
+
+//Destroy Prototype from Game Object
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
+  * EX:
+  * This sets up the __proto__ to inherit the prototype from Parent
+  * Child.prototype = Object.create(Parent.prototype);
 */
+
+//Health Points
+const CharacterStats = function(health){
+  this.healthPoints = health.healthPoints
+};
+
+//Take Damage Prototype Method
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.objName} took damage.`;
+}
+
+//Inherit Destroy() from GameObject Prototype
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// healthPoints: 5,
+// name: 'Bruce',
+// team: 'Mage Guild',
+// weapons: [
+//   'Staff of Shamalama',
+// ],
+// language: 'Common Tongue',
+// });
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -33,6 +78,24 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+//General Constructor for Humanoid
+const Humanoid = function(team,weapons,language){
+  this.team = team,
+  this.weapons = weapons,
+  this.language = language
+}
+
+//Greet prototype for Humanoid
+Humanoid.prototype.greet = function(){
+  return `${this.objName2} offers greeting in ${this.language}`;
+}
+
+//Inherit destroy from GameObject
+Humanoid.prototype = Object.create(GameObject.prototype);
+
+//Inherit takeDamage from CharacterStats
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +104,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +165,10 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction 
+  // if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
